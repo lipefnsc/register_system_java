@@ -6,6 +6,7 @@ import run.Main;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class RegisterUser {
@@ -55,9 +56,9 @@ public class RegisterUser {
 
     private List<String> thereAreMatchingEmails() throws IOException {
         File usersDir = new File(usersDirPath);
-        File[] files = usersDir.listFiles();
+        List<File> files = List.of(Objects.requireNonNull(usersDir.listFiles()));
 
-        if (files == null || files.length == 0) {
+        if (files.isEmpty()) {
             System.out.println("No users registered.");
             throw new IOException();
         }
@@ -70,14 +71,12 @@ public class RegisterUser {
         }
 
         return emails;
-
     }
 
     private String extractEmailFromFile(File file) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(file));
         br.readLine();
-        String email = br.readLine();
-        return email;
+        return br.readLine();
     }
 
 }

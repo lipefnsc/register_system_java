@@ -4,6 +4,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
 
 public class User {
     private String name;
@@ -21,8 +23,8 @@ public class User {
     public void createUserFile() {
         File usersDirectory = new File("users");
 
-        String[] existingFiles = usersDirectory.list();
-        int fileCount = existingFiles != null ? existingFiles.length : 0;
+        List<String> existingFiles = List.of(Objects.requireNonNull(usersDirectory.list()));
+        int fileCount = !existingFiles.isEmpty() ? existingFiles.size() : 0;
 
         String fileName = (fileCount + 1) + "-" + this.name.toUpperCase().replaceAll("\\s+", "") + ".txt";
         File file = new File(usersDirectory, fileName);

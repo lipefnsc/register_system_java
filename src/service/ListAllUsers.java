@@ -3,9 +3,8 @@ package service;
 import run.Main;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class ListAllUsers {
 
@@ -13,14 +12,12 @@ public class ListAllUsers {
 
     public void listAllUsers() throws IOException {
         File usersDir = new File(usersPath);
-        String[] files = usersDir.list();
+        List<String> files = List.of(Objects.requireNonNull(usersDir.list()));
 
-        if (files == null || files.length == 0) {
+        if (files.isEmpty()) {
             System.out.println("There is no users registered.");
             return;
         }
-
-        Arrays.sort(files);
 
         for (String filename : files) {
             File file = new File(usersDir, filename);

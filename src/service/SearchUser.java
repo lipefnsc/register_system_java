@@ -17,9 +17,9 @@ public class SearchUser {
         System.out.println("Type the name or part of the name of the user to search for: ");
         String searchInput = input.nextLine();
 
-        File[] files = usersDir.listFiles();
+        List<File> files = List.of(Objects.requireNonNull(usersDir.listFiles()));
 
-        if (files == null || files.length == 0) {
+        if (files.isEmpty()) {
             System.out.println("No users registered.");
             return;
         }
